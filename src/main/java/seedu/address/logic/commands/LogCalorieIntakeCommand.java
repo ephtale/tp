@@ -1,14 +1,13 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-
 import java.util.List;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import seedu.address.model.Model;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
@@ -74,7 +73,9 @@ public class LogCalorieIntakeCommand extends Command {
                 clientToEdit.getTrainerName(),
                 clientToEdit.getTags(),
                 clientToEdit.getCalorieTarget(),
-                newIntake
+            newIntake,
+            clientToEdit.getWorkoutFocus(),
+            clientToEdit.getRemark()
         );
 
         model.setPerson(clientToEdit, updatedClient);

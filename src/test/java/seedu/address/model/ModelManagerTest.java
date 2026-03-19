@@ -223,6 +223,24 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void isTrainerListFiltered_noFilter_returnsFalse() {
+        assertFalse(modelManager.isTrainerListFiltered());
+    }
+
+    @Test
+    public void isTrainerListFiltered_withFilter_returnsTrue() {
+        modelManager.updateFilteredTrainerList(person -> false);
+        assertTrue(modelManager.isTrainerListFiltered());
+    }
+
+    @Test
+    public void isTrainerListFiltered_afterResetToShowAll_returnsFalse() {
+        modelManager.updateFilteredTrainerList(person -> false);
+        modelManager.updateFilteredTrainerList(PREDICATE_SHOW_ALL_PERSONS);
+        assertFalse(modelManager.isTrainerListFiltered());
+    }
+
+    @Test
     public void setPerson_editSelectedTrainerToClient_clearsSelectionAndShowsAllClients() {
         AddressBook ab = new AddressBook();
         Trainer trainer = new Trainer(new Name("Trainer"), new Phone("90000001"),

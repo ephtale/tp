@@ -50,6 +50,9 @@ public interface Logic {
     /** Returns the selected trainer (if any). */
     Optional<Trainer> getSelectedTrainer();
 
+    /** Returns true if the trainer list has an active search filter. */
+    boolean isTrainerListFiltered();
+
     /**
      * Returns the user prefs' address book file path.
      */

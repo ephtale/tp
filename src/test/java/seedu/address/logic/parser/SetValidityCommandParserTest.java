@@ -24,12 +24,14 @@ public class SetValidityCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetValidityCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetValidityCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_missingValidityPrefix_throwsParseException() {
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetValidityCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetValidityCommand.MESSAGE_USAGE));
     }
 
     @Test

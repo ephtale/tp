@@ -45,19 +45,18 @@ public class Client extends Person {
 
     /**
      * Constructs a {@code Client} with all fields including calorie tracking data and optional client-only fields.
-     */
-    /**
-     * Constructs a {@code Client} with all fields including calorie tracking data and optional client-only fields.
      * Use this constructor for backwards-compatibility when validity is not present.
      */
     public Client(Name name, Phone phone, Phone trainerPhone, Name trainerName, Set<Tag> tags,
                   int calorieTarget, int calorieIntake,
                   Optional<WorkoutFocus> workoutFocus, Optional<Remark> remark) {
-        this(name, phone, trainerPhone, trainerName, tags, calorieTarget, calorieIntake, workoutFocus, remark, Optional.empty());
+        this(name, phone, trainerPhone, trainerName, tags, calorieTarget,
+                calorieIntake, workoutFocus, remark, Optional.empty());
     }
 
     /**
-     * Constructs a {@code Client} with all fields including calorie tracking data, optional client-only fields, and validity.
+     * Constructs a {@code Client} with all fields including calorie tracking data,
+     * optional client-only fields, and validity.
      */
     public Client(Name name, Phone phone, Phone trainerPhone, Name trainerName, Set<Tag> tags,
                   int calorieTarget, int calorieIntake,

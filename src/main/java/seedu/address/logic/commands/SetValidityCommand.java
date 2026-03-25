@@ -21,7 +21,8 @@ public class SetValidityCommand extends Command {
 
     public static final String COMMAND_WORD = "set-validity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the membership validity date of the client identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the membership validity date of the client identified "
             + "by the index number used in the displayed person list. "
             + "Existing validity will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "

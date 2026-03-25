@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 public class Validity {
 
     public static final String MESSAGE_CONSTRAINTS = "Validity should be a valid date in the format YYYY-MM-DD.";
-    
+
     public final String value;
 
     /**

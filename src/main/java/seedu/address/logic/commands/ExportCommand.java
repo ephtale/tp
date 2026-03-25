@@ -41,7 +41,11 @@ public class ExportCommand extends Command {
             storage.saveAddressBook(model.getAddressBook());
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath.toString()));
         } catch (IOException e) {
-            throw new CommandException(String.format(MESSAGE_EXPORT_FAILURE, filePath.toString(), e.getMessage()));
+            String errorMessage = e.getMessage();
+            if (e instanceof java.nio.file.AccessDeniedException) {
+                errorMessage = "Permission denied to write to file.";
+            }
+            throw new CommandException(String.format(MESSAGE_EXPORT_FAILURE, filePath.toString(), errorMessage));
         }
     }
 

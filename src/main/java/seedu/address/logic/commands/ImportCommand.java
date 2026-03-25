@@ -48,7 +48,11 @@ public class ImportCommand extends Command {
             model.setAddressBook(addressBookOptional.get());
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath.toString()));
         } catch (DataLoadingException e) {
-            throw new CommandException(String.format(MESSAGE_IMPORT_FAILURE, filePath.toString(), e.getMessage()));
+            String errorMessage = e.getMessage();
+            if (e.getCause() instanceof java.nio.file.AccessDeniedException) {
+                errorMessage = "Permission denied to read from file.";
+            }
+            throw new CommandException(String.format(MESSAGE_IMPORT_FAILURE, filePath.toString(), errorMessage));
         }
     }
 

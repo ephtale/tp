@@ -30,8 +30,8 @@ import seedu.address.logic.commands.ReassignClientCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SetCalorieTargetCommand;
 import seedu.address.logic.commands.SetFocusCommand;
-import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.SetValidityCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

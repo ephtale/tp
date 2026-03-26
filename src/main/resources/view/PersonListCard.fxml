@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -33,6 +34,8 @@
       <Label fx:id="email" styleClass="cell_small_label" />
       <Label fx:id="assignedTrainer" styleClass="cell_small_label" />
       <Label fx:id="calorieInfo" styleClass="cell_small_label" />
+      <ProgressBar fx:id="calorieProgressBar" maxWidth="Infinity" prefHeight="12"
+                   progress="0" styleClass="calorie-bar" />
       <Label fx:id="workoutFocus" styleClass="cell_small_label" />
       <Label fx:id="remark" styleClass="cell_small_label" />
     </VBox>

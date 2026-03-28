@@ -5,8 +5,7 @@ skinparam ArrowFontStyle plain
 actor User as User USER_COLOR
 
 box UI UI_COLOR_T1
-participant ":MainWindow" as MainWindow UI_COLOR
-participant ":CommandBox" as CommandBox UI_COLOR
+participant ":UI" as Ui UI_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
@@ -25,13 +24,10 @@ participant ":Storage" as Storage STORAGE_COLOR
 end box
 
 
-User -[USER_COLOR]> CommandBox : handleCommandEntered()
-activate CommandBox
+User -[USER_COLOR]> Ui : enterCommand("set-focus c/1 f/Chest")
+activate Ui
 
-CommandBox -[UI_COLOR]> MainWindow : executeCommand("set-focus c/1 f/Chest")
-activate MainWindow
-
-MainWindow -[UI_COLOR]> LogicManager : execute("set-focus c/1 f/Chest")
+Ui -[UI_COLOR]> LogicManager : execute("set-focus c/1 f/Chest")
 activate LogicManager
 
 LogicManager -[LOGIC_COLOR]> AddressBookParser : parseCommand("set-focus c/1 f/Chest")
@@ -73,22 +69,11 @@ deactivate SetFocusCommand
 
 LogicManager -[LOGIC_COLOR]> Storage : saveAddressBook(model.getAddressBook())
 activate Storage
-
-Storage -[STORAGE_COLOR]> Storage : Write JSON to file
-activate Storage STORAGE_COLOR_T1
-Storage --[STORAGE_COLOR]> Storage
-deactivate Storage
-
 Storage --[STORAGE_COLOR]> LogicManager
 deactivate Storage
 
-LogicManager --[LOGIC_COLOR]> MainWindow : r:CommandResult
+LogicManager --[LOGIC_COLOR]> Ui : r:CommandResult
 deactivate LogicManager
-
-MainWindow --[UI_COLOR]> CommandBox
-deactivate MainWindow
-
-'CommandBox clears the text field and the UI shows feedback.
-deactivate CommandBox
+deactivate Ui
 
 @enduml

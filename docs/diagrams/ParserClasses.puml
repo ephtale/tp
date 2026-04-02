@@ -6,11 +6,11 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 Class "{abstract}\nCommand" as Command
 Class XYZCommand
-note right of XYZCommandParser: XYZCommandParser = AddClientCommandParser,\nAddTrainerCommandParser, DeleteCommandParser,\nDeleteClientCommandParser, DeleteTrainerCommandParser,\nFindCommandParser, RemarkCommandParser, etc
+note right of XYZCommandParser: XYZCommandParser = AddClientCommandParser,\nAddTrainerCommandParser, DeleteCommandParser,\nDeleteClientCommandParser, DeleteTrainerCommandParser,\nFindCommandParser, FindClientsCommandParser,\nFindTrainersCommandParser, RemarkCommandParser,\nSetCalorieTargetCommandParser, LogCalorieIntakeCommandParser,\nSetFocusCommandParser, SetValidityCommandParser,\nReassignClientCommandParser, ListClientsCommandParser,\nExportCommandParser, ImportCommandParser, etc
 
 package "Parser classes"{
 Class "<<interface>>\nParser" as Parser
-Class AddressBookParser
+Class GymOpsParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -20,12 +20,12 @@ Class Prefix
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> AddressBookParser
+HiddenOutside ..> GymOpsParser
 
-AddressBookParser .down.> XYZCommandParser: <<create>>
+GymOpsParser .down.> XYZCommandParser: <<create>>
 
 XYZCommandParser ..> XYZCommand : <<create>>
-AddressBookParser ..> Command : <<use>>
+GymOpsParser ..> Command : <<use>>
 XYZCommandParser .up.|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer

@@ -34,6 +34,7 @@ This guide is written for **gym managers and administrators** who want a fast, k
   - [Viewing help](#viewing-help-help)
   - [Adding a trainer](#adding-a-trainer-add-trainer)
   - [Adding a client](#adding-a-client-add-client)
+  - [Editing a client](#editing-a-client-edit-client)
   - [Reassigning a client](#reassigning-a-client-reassign-client)
   - [Listing all persons](#listing-all-persons-list)
   - [Listing all trainers](#listing-all-trainers-list-trainers)
@@ -174,6 +175,28 @@ Examples:
 
 ![add client](images/addClient.png)
 **Expected outcome:** The new client is assigned to the specified trainer, added to the **Clients** panel, and a success message is displayed.
+
+[⬆ Back to top](#table-of-contents)
+
+---
+
+### Editing a client: `edit-client`
+
+Edits the details of an existing client in GymOps. Use this command to update a edit-cleint's name, phone number, assigned trainer, calorie target, workout focus, remark, or membership validity.
+
+Format: `edit-client INDEX [n/NAME] [p/PHONE] [t/TRAINER_INDEX] [cal/CALORIE_TARGET] [f/FOCUS] [r/REMARK] [v/VALIDITY]`
+
+* `INDEX` must be a positive integer.
+* At least one optional field must be provided.
+* Existing values will be overwritten by the input values.
+* When editing the trainer assignment, `TRAINER_INDEX` must refer to a valid trainer.
+
+<div markdown="span" class="alert alert-info">:bulb: **Tip:** Run `list-clients` to confirm the correct client index before editing.</div>
+
+Examples:
+* `edit-client 1 name/Alice Tan` — updates the 1st client's name to Alice Tan.
+* `edit-client 2 p/91234567 cal/2000` — updates the 2nd client's phone and calorie target.
+* `edit-client 1 t/2 f/Arms` — reassigns the 1st client to trainer #2 and sets focus to Arms.
 
 [⬆ Back to top](#table-of-contents)
 
@@ -598,6 +621,7 @@ Install GymOps on the other computer and replace the empty data file it creates 
 | **Help** | `help` | — |
 | **Add trainer** | `add-trainer n/NAME p/PHONE_NUMBER e/EMAIL` | `add-trainer n/John Doe p/98765432 e/johndoe@example.com` |
 | **Add client** | `add-client n/NAME p/PHONE_NUMBER t/TRAINER_INDEX [v/VALIDITY]` | `add-client n/Alice Lim p/81234567 t/1 v/2028-09-09` |
+| **Edit client** | `edit-client INDEX [n/NAME] [p/PHONE] [cal/CALORIE_TARGET] [f/FOCUS] [r/REMARK] [v/VALIDITY]` | `edit-client 1 n/Alice Tan p/91234567` |
 | **Reassign client** | `reassign-client CLIENT_INDEX t/TRAINER_INDEX` | `reassign-client 2 t/1` |
 | **List all** | `list` | — |
 | **List trainers** | `list-trainers` | — |

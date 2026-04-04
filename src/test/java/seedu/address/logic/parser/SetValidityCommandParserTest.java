@@ -38,4 +38,9 @@ public class SetValidityCommandParserTest {
     public void parse_invalidValidity_throwsParseException() {
         assertParseFailure(parser, "1 " + PREFIX_VALIDITY + "invalid", Validity.MESSAGE_CONSTRAINTS);
     }
+
+    @Test
+    public void parse_pastDate_throwsParseException() {
+        assertParseFailure(parser, "1 " + PREFIX_VALIDITY + "2000-01-01", Validity.MESSAGE_PAST_DATE);
+    }
 }

@@ -151,19 +151,32 @@ public class EditClientCommand extends Command {
         int updatedCalorieTarget = descriptor.getCalorieTarget()
                 .orElse(clientToEdit.getCalorieTarget());
 
-        Optional<WorkoutFocus> updatedFocus = descriptor.getWorkoutFocus()
-                .isPresent()
-                ? Optional.of(descriptor.getWorkoutFocus().get())
-                : clientToEdit.getWorkoutFocus();
+        Optional<WorkoutFocus> updatedFocus;
+        if (descriptor.isClearWorkoutFocus()) {
+            updatedFocus = Optional.empty();
+        } else {
+            updatedFocus = descriptor.getWorkoutFocus().isPresent()
+                    ? Optional.of(descriptor.getWorkoutFocus().get())
+                    : clientToEdit.getWorkoutFocus();
+        }
 
-        Optional<Remark> updatedRemark = descriptor.getRemark().isPresent()
-                ? Optional.of(descriptor.getRemark().get())
-                : clientToEdit.getRemark();
+        Optional<Remark> updatedRemark;
+        if (descriptor.isClearRemark()) {
+            updatedRemark = Optional.empty();
+        } else {
+            updatedRemark = descriptor.getRemark().isPresent()
+                    ? Optional.of(descriptor.getRemark().get())
+                    : clientToEdit.getRemark();
+        }
 
-        Optional<Validity> updatedValidity = descriptor.getValidity()
-                .isPresent()
-                ? Optional.of(descriptor.getValidity().get())
-                : clientToEdit.getValidity();
+        Optional<Validity> updatedValidity;
+        if (descriptor.isClearValidity()) {
+            updatedValidity = Optional.empty();
+        } else {
+            updatedValidity = descriptor.getValidity().isPresent()
+                    ? Optional.of(descriptor.getValidity().get())
+                    : clientToEdit.getValidity();
+        }
 
         return new Client(updatedName, updatedPhone, trainerPhone,
                 trainerName, clientToEdit.getTags(),
@@ -207,6 +220,9 @@ public class EditClientCommand extends Command {
         private WorkoutFocus workoutFocus;
         private Remark remark;
         private Validity validity;
+        private boolean clearWorkoutFocus = false;
+        private boolean clearRemark = false;
+        private boolean clearValidity = false;
 
         public EditClientDescriptor() {
         }
@@ -222,6 +238,9 @@ public class EditClientCommand extends Command {
             setWorkoutFocus(toCopy.workoutFocus);
             setRemark(toCopy.remark);
             setValidity(toCopy.validity);
+            setClearWorkoutFocus(toCopy.clearWorkoutFocus);
+            setClearRemark(toCopy.clearRemark);
+            setClearValidity(toCopy.clearValidity);
         }
 
         /**
@@ -229,8 +248,9 @@ public class EditClientCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return name != null || phone != null || trainerIndex != null
-                    || calorieTarget != null || workoutFocus != null
-                    || remark != null || validity != null;
+                    || calorieTarget != null || workoutFocus != null || clearWorkoutFocus
+                    || remark != null || clearRemark
+                    || validity != null || clearValidity;
         }
 
         public void setName(Name name) {
@@ -289,6 +309,30 @@ public class EditClientCommand extends Command {
             return Optional.ofNullable(validity);
         }
 
+        public void setClearWorkoutFocus(boolean clear) {
+            this.clearWorkoutFocus = clear;
+        }
+
+        public boolean isClearWorkoutFocus() {
+            return clearWorkoutFocus;
+        }
+
+        public void setClearRemark(boolean clear) {
+            this.clearRemark = clear;
+        }
+
+        public boolean isClearRemark() {
+            return clearRemark;
+        }
+
+        public void setClearValidity(boolean clear) {
+            this.clearValidity = clear;
+        }
+
+        public boolean isClearValidity() {
+            return clearValidity;
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -310,7 +354,10 @@ public class EditClientCommand extends Command {
                     && Objects.equals(workoutFocus,
                             otherDescriptor.workoutFocus)
                     && Objects.equals(remark, otherDescriptor.remark)
-                    && Objects.equals(validity, otherDescriptor.validity);
+                    && Objects.equals(validity, otherDescriptor.validity)
+                    && clearWorkoutFocus == otherDescriptor.clearWorkoutFocus
+                    && clearRemark == otherDescriptor.clearRemark
+                    && clearValidity == otherDescriptor.clearValidity;
         }
 
         @Override

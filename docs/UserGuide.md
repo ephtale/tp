@@ -620,6 +620,27 @@ Data is saved as a JSON file at `[JAR file location]/data/GymOps.json`. Advanced
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:** If the file format becomes invalid, GymOps will discard all data and start fresh on the next run. Back up the file before editing it. Certain edits may also cause GymOps to behave unexpectedly if values fall outside acceptable ranges.</div>
 
+#### Advanced: assigning tags manually
+
+GymOps includes a tag system, but there is currently **no CLI command** to assign tags.
+Advanced users may still assign tags by editing the `tags` field in the data file.
+
+- Only edit the file while GymOps is **closed**. Otherwise, your changes may be overwritten when GymOps saves.
+- Tags must be **alphanumeric** (e.g., `vip`, `Trial2026`).
+- Each person entry can have a `tags` array. Example:
+
+   ```json
+   {
+      "type": "trainer",
+      "name": "Real Trainer",
+      "phone": "92222222",
+      "email": "real@trainer.com",
+      "tags": ["vip", "trial"]
+   }
+   ```
+
+If you enter an invalid tag (or break the JSON format), GymOps may fail to load the file and start with a fresh/empty dataset.
+
 ---
 
 ## FAQ

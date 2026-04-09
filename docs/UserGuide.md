@@ -353,15 +353,11 @@ Format: `list-trainers`
 
 #### Finding trainers: `find-trainers`
 
-Finds trainers whose names contain any of the given keywords.
+Finds trainers whose names contain any of the given keywords. Searches only the trainer list.
 
 Format: `find-trainers KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g. `hans` matches `Hans`.
-* The order of keywords does not matter. e.g. `Hans Bo` matches `Bo Hans`.
-* Partial words are matched. e.g. `Han` matches `Hans`.
-* Each keyword may only contain alphanumeric characters, periods, hyphens, apostrophes, and slashes. e.g. `Bob123`, `o'connor`, and `s/o` are valid; `Bob@` is not.
-* Results include trainers matching **at least one** keyword (OR search).
+* Follows the same search rules as [`find`](#finding-persons-find) (case-insensitive, partial match, OR search, keyword character restrictions).
 * Run `list-trainers` to return to the full trainer list after searching.
 
 Examples:
@@ -389,7 +385,7 @@ Format: `stats`
 
 #### Deleting a trainer: `delete-trainer`
 
-Deletes a trainer from GymOps.
+Deletes the trainer at the given index from GymOps. Shorthand for `delete t/INDEX`.
 
 Format: `delete-trainer INDEX`
 
@@ -398,7 +394,7 @@ Format: `delete-trainer INDEX`
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:** A trainer cannot be deleted if they still have active clients. Use `delete-client` to remove their clients first.</div>
 
 Examples:
-* `delete-trainer 1` — deletes the 1st trainer.
+* `delete-trainer 1` — deletes the 1st trainer (same as `delete t/1`).
 
 **Expected outcome:** The trainer is permanently removed from the application, and a success message is displayed.
 
@@ -498,15 +494,11 @@ Examples:
 
 #### Finding clients: `find-clients`
 
-Finds clients whose names contain any of the given keywords.
+Finds clients whose names contain any of the given keywords. Searches only the client list.
 
 Format: `find-clients KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g. `alice` matches `Alice`.
-* The order of keywords does not matter. e.g. `Alice Bob` matches `Bob Alice`.
-* Partial words are matched. e.g. `Ali` matches `Alice`.
-* Each keyword may only contain alphanumeric characters, periods, hyphens, apostrophes, and slashes. e.g. `Alice123`, `o'connor`, and `s/o` are valid; `Alice@` is not.
-* Results include clients matching **at least one** keyword (OR search).
+* Follows the same search rules as [`find`](#finding-persons-find) (case-insensitive, partial match, OR search, keyword character restrictions).
 * Run `list-clients` to return to the full client list after searching.
 
 Examples:
@@ -521,7 +513,7 @@ Examples:
 
 #### Deleting a client: `delete-client`
 
-Deletes a client from GymOps. The client is permanently removed and unassigned from their trainer.
+Deletes the client at the given index from GymOps. Shorthand for `delete c/INDEX`.
 
 Format: `delete-client INDEX`
 
@@ -530,7 +522,7 @@ Format: `delete-client INDEX`
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** Run `find-clients NAME` first to locate the client, then use the index shown in the filtered list.</div>
 
 Examples:
-* `delete-client 1` — deletes the 1st client in the current list.
+* `delete-client 1` — deletes the 1st client in the current list (same as `delete c/1`).
 
 **Expected outcome:** The client is permanently removed from the application, their assigned trainer's client count is updated, and a success message is displayed.
 
@@ -666,6 +658,30 @@ If you enter an invalid tag (or break the JSON format), GymOps may fail to load 
 **Q: How do I transfer my data to another computer?**
 
 Install GymOps on the other computer and replace the empty data file it creates with your existing data file from `[JAR file location]/data/GymOps.json`.
+
+---
+
+**Q: Why can't I delete a trainer?**
+
+A trainer cannot be deleted if they still have active clients. Use `delete-client` or `delete c/` to remove all of the trainer's clients first, then delete the trainer.
+
+---
+
+**Q: Can I undo a command?**
+
+GymOps does not currently support an undo command. Before running destructive commands like `clear` or `delete`, consider running `export` first to back up your data.
+
+---
+
+**Q: Why does my calorie intake not reset to zero each day?**
+
+GymOps does not automatically reset daily calorie intake. You can reset a client's intake by running `log-calorie` with a corrected cumulative total, or by editing the data file directly while GymOps is closed.
+
+---
+
+**Q: Can I add tags via a command?**
+
+There is currently no CLI command to assign tags. Tags can only be added by editing the `tags` field in the data file directly (see [Editing the data file](#editing-the-data-file)). Only edit the file while GymOps is **closed**.
 
 ---
 

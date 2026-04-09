@@ -209,7 +209,7 @@ The UI shows two lists by filtering that single list using `instanceof` checks i
 <div markdown="span" class="alert alert-info">:information_source: **Info:** GymOps does not maintain separate trainer/client collections in the model; both lists are views over the same underlying `UniquePersonList<Person>`.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: **Warning:** Identity rules are type-specific (`Trainer` uses phone-or-email; `Client` uses phone only). Avoid assuming that phone numbers are globally unique across all persons.
+<div markdown="span" class="alert alert-warning">:warning: **Warning:** Phone numbers are globally unique across all persons. GymOps also enforces trainer email uniqueness among trainers.
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** When implementing a command that takes an index, be explicit about which filtered list it indexes into (trainer list vs client list) to avoid subtle UI/index mismatches.
@@ -217,13 +217,10 @@ The UI shows two lists by filtering that single list using `instanceof` checks i
 
 #### Identity and uniqueness rules
 
-Uniqueness is enforced by `UniquePersonList` via `Person#isSamePerson(...)`. Because `Trainer` and `Client` override this method differently, GymOps has type-specific identity rules:
+Uniqueness is enforced by `UniquePersonList` via `Person#isSamePerson(...)` using these rules:
 
-* **Trainer uniqueness**: two trainers are considered the “same person” if they share either **phone** or **email**.
-   This ensures trainers do not share a phone or email.
-* **Client uniqueness**: two clients are considered the “same person” if they share **phone**.
-* **Cross-type phones**: a `Client` and a `Trainer` with the same phone number are *not* considered duplicates.
-   (This is intentional and is encoded in `Client#isSamePerson(...)`.)
+* **Phone uniqueness (global)**: two persons (client or trainer) are considered the “same person” if they share **phone**.
+* **Trainer email uniqueness**: two trainers are also considered the “same person” if they share **email**.
 
 These rules affect `add-*` and `edit-*` commands because duplicates are rejected at the `UniquePersonList` level.
 

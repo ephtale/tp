@@ -142,10 +142,17 @@ public class ParserUtil {
     public static int parseCalorieTarget(String calories) throws ParseException {
         requireNonNull(calories);
         String trimmed = calories.trim();
-        if (!trimmed.equals("0") && !StringUtil.isNonZeroUnsignedInteger(trimmed)) {
+        if (trimmed.equals("0")) {
+            return 0;
+        }
+        if (!trimmed.matches("[1-9]\\d*")) {
             throw new ParseException("Calorie target must be a non-negative integer (use 0 to clear).");
         }
-        return Integer.parseInt(trimmed);
+        try {
+            return Integer.parseInt(trimmed);
+        } catch (NumberFormatException e) {
+            throw new ParseException("That is too many calories. Please enter a smaller value.");
+        }
     }
 
     /**

@@ -67,6 +67,19 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseCalorieTarget_outOfRange_throwsParseException() {
+        String tooLarge = Long.toString((long) Integer.MAX_VALUE + 1);
+        assertThrows(ParseException.class, "That is too many calories. Please enter a smaller value.", ()
+                -> ParserUtil.parseCalorieTarget(tooLarge));
+    }
+
+    @Test
+    public void parseCalorieTarget_zero_success() throws Exception {
+        assertEquals(0, ParserUtil.parseCalorieTarget("0"));
+        assertEquals(0, ParserUtil.parseCalorieTarget(WHITESPACE + "0" + WHITESPACE));
+    }
+
+    @Test
     public void parseName_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
     }

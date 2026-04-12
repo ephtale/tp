@@ -247,7 +247,7 @@ GymOps maintains referential consistency between `Client` and `Trainer` in a few
 * **On load (storage)**: after JSON is converted into model objects, GymOps removes any `Client` whose `trainerPhone` does not match any existing `Trainer` phone in the loaded dataset.
    This prevents the app from starting with inconsistent state if the data file is corrupted or manually edited.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **User note:** Editing the data file is possible but **not recommended**. Treat the JSON file as an internal persistence detail; prefer in-app commands (e.g., import/export) for data management. If manual edits are unavoidable (e.g., recovery), do it only while the app is closed and keep a backup first.</div>
+<div markdown="span" class="alert alert-warning">:exclamation: **Data file note:** For end-users, do **not** manually edit the data file. The JSON format is an internal persistence detail and is **not** a supported interface; manual edits can corrupt data and may be overwritten by auto-save. For developers, manual edits may be useful for controlled debugging/testing, but there are no compatibility guarantees (schema/constraints may change). If you do edit it, do so only while the app is closed and keep a backup first.</div>
 * **On trainer edits (model)**: when `Model#setPerson(target, editedPerson)` edits a trainer, `ModelManager` propagates changes by updating every client whose `trainerPhone` matches the original trainer.
    This keeps client assignment labels correct even if the trainer’s phone/name changes.
 * **On trainer deletion (logic)**: deleting a trainer is blocked if any client is still assigned to them.
@@ -1459,6 +1459,9 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `log-cal c/1 cal/500`<br>
       Expected: The client card shows an updated calorie intake total.
+
+   1. Test case: `log-cal c/1 cal/0`<br>
+      Expected: The client card shows a calorie intake total of 0.
 
 ### Setting workout focus
 

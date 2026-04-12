@@ -121,6 +121,19 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String calories} into a non-negative {@code int} calorie intake total.
+     * Accepts 0.
+     */
+    public static int parseCalorieIntakeTotal(String calories) throws ParseException {
+        requireNonNull(calories);
+        String trimmedCalories = calories.trim();
+        if (trimmedCalories.equals("0")) {
+            return 0;
+        }
+        return parseCalories(trimmedCalories);
+    }
+
+    /**
      * Parses a {@code String calories} into a non-negative {@code int} calorie target.
      * Accepts 0 (meaning "not set") or any positive integer.
      *

@@ -29,7 +29,7 @@ public class LogCalorieIntakeCommand extends Command {
             + " The calories overwrite the client's existing daily intake.\n"
             + "Parameters: "
             + PREFIX_CLIENT + "CLIENT_INDEX "
-            + PREFIX_CALORIE + "CALORIES (must be a positive integer)\n"
+            + PREFIX_CALORIE + "CALORIES (must be a non-negative integer; use 0 to reset)\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_CLIENT + "1 " + PREFIX_CALORIE + "500";
 
     public static final String MESSAGE_LOG_CALORIE_SUCCESS = "Set calorie intake for %1$s: %2$d kcal";

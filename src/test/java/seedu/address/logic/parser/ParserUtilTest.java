@@ -61,6 +61,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseCalorieIntakeTotal_zero_success() throws Exception {
+        assertEquals(0, ParserUtil.parseCalorieIntakeTotal("0"));
+        assertEquals(0, ParserUtil.parseCalorieIntakeTotal(WHITESPACE + "0" + WHITESPACE));
+    }
+
+    @Test
     public void parseName_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
     }

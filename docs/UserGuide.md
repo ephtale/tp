@@ -290,7 +290,7 @@ GymOps saves data automatically after every command that modifies it. No manual 
 Data is saved as a JSON file at `[JAR file location]/data/GymOps.json`.
 This file is **managed by GymOps** and is **not meant to be edited by hand**.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning:** Editing `GymOps.json` is possible but **strongly not recommended** unless you really need to (unlikely) and you know exactly what you are doing. Manual edits can corrupt your data or violate data constraints, causing GymOps to start with an empty dataset. GymOps also auto-saves after successful commands, so manual changes may be overwritten. Prefer `export`/`import` for backups and transfers. If you must edit the file, do it only while GymOps is **closed** and keep a backup copy first.</div>
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:** Do **not** edit `GymOps.json` manually. This is **unsupported** and may corrupt your data (or violate data constraints), causing GymOps to drop records or start with an empty dataset. GymOps also auto-saves after successful commands, so any manual changes may be overwritten. Use `export`/`import` for backups and transfers. If you need to move data by copying files, replace the whole file only while GymOps is **closed**.</div>
 
 ---
 
@@ -519,10 +519,11 @@ Logs calorie intake for a client. The input overwrites the client's existing dai
 Format: `log-cal c/CLIENT_INDEX cal/CALORIES`
 
 * `CLIENT_INDEX` must refer to a client in the **client list**.
-* `CALORIES` must be a positive integer.
+* `CALORIES` must be a non-negative integer. Use `0` to reset the client's intake total.
 
 Examples:
 * `log-cal c/1 cal/1500` — sets the 1st client's daily intake total to 1500 calories.
+* `log-cal c/1 cal/0` — resets the 1st client's daily intake total to 0.
 
 ![log calorie](images/logCalorie.png)
 
@@ -606,9 +607,9 @@ If you prefer copying files directly, install GymOps on the other computer and r
 
 GymOps may contain fields in the data file that are **not exposed through the app’s UI/CLI** (e.g., legacy/internal fields such as `tags`).
 
-While you *can* edit the data file, it is **not recommended** unless you are doing a one-off recovery/migration and you understand the JSON format and constraints. A small mistake can prevent GymOps from loading your data.
+No. Do **not** edit the data file contents. Manual edits are **unsupported** and a small mistake can prevent GymOps from loading your data (or cause it to load with missing data).
 
-If your goal is to label or categorise people, use the supported in-app features instead. If you are trying to move/backup data, use `export`/`import`.
+If your goal is to label or categorise people, use the supported in-app commands instead. If you are trying to move/backup data, use `export`/`import` (recommended) or replace the entire file while GymOps is closed.
 
 ---
 
@@ -643,8 +644,7 @@ GymOps does not automatically reset daily calorie intake.
 
 To correct a client's displayed intake total, use `log-cal` with the desired total.
 
-GymOps does not currently provide a command to reset the intake total to 0.
-If you need to return the displayed intake to 0, restore from a previous `export` backup or re-create the client.
+To reset a client's intake total to 0, run `log-cal c/CLIENT_INDEX cal/0`.
 
 ---
 

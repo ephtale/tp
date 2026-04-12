@@ -94,6 +94,33 @@ public class LogCalorieIntakeCommandTest {
     }
 
     @Test
+    public void execute_setsIntakeToZero_success() {
+        AddressBook ab = new AddressBook();
+        Trainer trainer = new Trainer(new Name("John"), new Phone("91234567"),
+                new Email("john@example.com"), new HashSet<>());
+        Client client = new Client(new Name("Alice"), new Phone("81234567"),
+                trainer.getPhone(), trainer.getName(), new HashSet<>(), 2000, 300);
+        ab.addPerson(trainer);
+        ab.addPerson(client);
+        Model model = new ModelManager(ab, new UserPrefs());
+
+        LogCalorieIntakeCommand command = new LogCalorieIntakeCommand(INDEX_FIRST_PERSON, 0);
+
+        Client updatedClient = new Client(client.getName(), client.getPhone(),
+                client.getTrainerPhone(), client.getTrainerName(), client.getTags(),
+                client.getCalorieTarget(), 0);
+        String expectedMessage = String.format(LogCalorieIntakeCommand.MESSAGE_LOG_CALORIE_SUCCESS,
+                updatedClient.getName(), 0);
+
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addPerson(trainer);
+        expectedAb.addPerson(updatedClient);
+        Model expectedModel = new ModelManager(expectedAb, new UserPrefs());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_indexPointsToTrainer_throwsCommandException() {
         AddressBook ab = new AddressBook();
         Trainer trainer = new Trainer(new Name("John"), new Phone("91234567"),

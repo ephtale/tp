@@ -340,7 +340,7 @@ Other client attribute commands follow the same flow, with small differences:
    * For `f/`, `r/`, and `v/`, providing an empty value (e.g., `f/`) clears the corresponding optional field.
 * `remark INDEX r/REMARK` updates `Client#remark`.
 * `set-cal c/INDEX cal/CALORIES` updates `Client#calorieTarget`. Use `cal/0` to clear the target.
-* `log-cal c/INDEX cal/CALORIES` adds to `Client#calorieIntake` rather than overwriting it.
+* `log-cal c/INDEX cal/CALORIES` overwrites `Client#calorieIntake` with the given total.
 * `reassign-c CLIENT_INDEX t/TRAINER_INDEX` reads both the filtered client list and filtered trainer list and updates `trainerPhone` + `trainerName`.
 * `set-validity INDEX v/YYYY-MM-DD` updates `Client#validity`.
 
@@ -385,7 +385,7 @@ Step 4. The supervisor sets a daily calorie target using `set-cal c/1 cal/2000`.
 GymOps updates the target and persists the change. To clear the target later, run `set-cal c/1 cal/0`.
 
 Step 5. The supervisor logs calorie intake throughout the day using `log-cal c/1 cal/500`.
-GymOps adds the new amount to the existing intake total.
+GymOps overwrites the client's intake total with the given value.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The current version does not automatically reset intake totals by date.
 </div>
@@ -1041,7 +1041,7 @@ The use cases below cover the user stories in the table above. Use cases that ar
 1. Supervisor requests to list clients (or filters clients).
 2. GymOps shows the client list.
 3. Supervisor views a client card.
-4. GymOps displays the client’s current calorie target/intake (if present) and workout focus (if present).
+4. GymOps displays the client’s calorie intake/target summary and workout focus (if present).
 
    Use case ends.
 
@@ -1049,7 +1049,7 @@ The use cases below cover the user stories in the table above. Use cases that ar
 
 * 4a. The client has no calorie target set.
 
-  * 4a1. GymOps shows the intake without a target progress indicator (or omits the progress bar).
+   * 4a1. GymOps shows the calories section without a target progress indicator.
 
     Use case ends.
 
@@ -1370,13 +1370,13 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete t/1`<br>
       Expected: Trainer at index 1 is deleted from the trainer list. Details of the deleted trainer shown in the status message.
 
-   1. Test case: `delete-trainer 1`<br>
+   1. Test case: `delete t/1`<br>
       Expected: Same as `delete t/1`.
 
    1. Test case: `delete c/1`<br>
       Expected: Client at index 1 is deleted from the client list. Details of the deleted client shown in the status message.
 
-   1. Test case: `delete-client 1`<br>
+   1. Test case: `delete c/1`<br>
       Expected: Same as `delete c/1`.
 
    1. Test case: `delete t/1` (where trainer at index 1 still has active clients)<br>

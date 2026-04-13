@@ -106,7 +106,7 @@ This guide is written for **gym managers and administrators** who want a fast, k
    | 3 | `list-t` | Confirm the trainer was added |
    | 4 | `add-c n/Alice Lim p/81234567 t/1 v/2028-09-09` | Assign a client to trainer #1 |
    | 5 | `find-c Alice` | Search for the client you just added |
-  | 6 | `delete c/1` | Delete the 1st client in the current list |
+   | 6 | `delete c/1` | Delete the 1st client in the current list |
    | 7 | `clear` | Delete all data |
    | 8 | `exit` | Exit the app |
 
@@ -186,7 +186,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** Use `find-t` to search exclusively for trainers, or `find-c` to search exclusively for clients.</div>
 
 Examples:
-* `find John` — returns `john`, `John Doe`, `Johnny`.
+* `find David` — returns `david`, `David Hasselhoff`, `David`.
 * `find alex david` — returns `Alex Yeoh`, `David Li`, `Alexander`.
 
 ![find](images/find.png)
@@ -316,7 +316,7 @@ Format: `add-t n/NAME p/PHONE_NUMBER e/EMAIL`
 * **Phone uniqueness**: `PHONE_NUMBER` must be strictly unique globally across both trainers and clients.
 
 Examples:
-* `add-t n/John Doe p/98765432 e/johndoe@example.com`
+* `add-t n/NotDotManjan p/3298493 e/ndt@ndt.com`
 
 ![add trainer](images/addTrainer.png)
 **Expected outcome:** The new trainer is added to the **Trainers** panel, and a success message is displayed.
@@ -342,8 +342,8 @@ Format: `edit-t INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]`
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** Run `list-t` to confirm the correct trainer index before editing.</div>
 
 Examples:
-* `edit-t 1 e/johndoe@gym.com` — updates the 1st trainer's email.
 * `edit-t 2 n/Jane Doe p/92222222` — updates the 2nd trainer's name and phone.
+* `edit-t 4 e/nddddddddt@ndt.com` — updates the 4th trainer's email.
 
 ![edit trainer](images/editTrainer.png)
 
@@ -420,7 +420,7 @@ Format: `add-c n/NAME p/PHONE_NUMBER t/TRAINER_INDEX [v/VALIDITY]`
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** Run `list-t` to confirm the correct trainer index before adding a client.</div>
 
 Examples:
-* `add-c n/Alice Lim p/81234567 t/1` — adds Alice Lim and assigns her to the 1st trainer in the list.
+* `add-c n/Sid p/12390092 t/1` — adds Sid and assigns him to the 1st trainer in the list.
 * `add-c n/Alice Lim p/81234567 t/1 v/2028-09-09` — adds Alice Lim, assigns her to the 1st trainer, and sets her membership validity to 2028-09-09.
 
 ![add client](images/addClient.png)
@@ -537,7 +537,7 @@ Format: `set-cal c/CLIENT_INDEX cal/CALORIES`
 * `CALORIES` must be a non-negative integer. Use `0` to clear the calorie target.
 
 Examples:
-* `set-cal c/1 cal/2400` — sets a 2400-calorie daily target for the 1st client.
+* `set-cal c/1 cal/3000` — sets a 3000-calorie daily target for the 1st client.
 * `set-cal c/1 cal/0` — clears the calorie target for the 1st client.
 
 ![set calorie](images/setCalorieTarget.png)
@@ -584,7 +584,7 @@ Format: `set-focus c/CLIENT_INDEX f/FOCUS`
 * **Clearing Focus**: To completely wipe a client's workout focus, leave the `set-focus` command behind and use `edit-c INDEX f/` instead.
 
 Examples:
-* `set-focus c/1 f/Chest` — sets the 1st client's workout focus to "Chest".
+* `set-focus c/1 f/Legs and Glutes` — sets the 1st client's workout focus to "Legs and Glutes".
 
 ![set focus](images/setFocus.png)
 **Expected outcome:** The client's workout focus is updated and displayed as a tag on their card. A success message is displayed.
@@ -603,7 +603,7 @@ Format: `remark c/CLIENT_INDEX r/REMARK`
 * `REMARK` must not be empty.
 
 Examples:
-* `remark c/1 r/Recovering from ACL surgery`
+* `remark c/1 r/Supports Homelander` — sets the 1st client's remark to "Supports Homelander".
 
 ![remark](images/remark.png)
 **Expected outcome:** The client's remark is updated and displayed on their card. A success message is displayed.
@@ -625,7 +625,7 @@ Format: `set-validity INDEX v/VALIDITY`
 * **Clearing Validity**: To completely remove an existing validity date, leave the `set-validity` command behind and use `edit-c INDEX v/` instead.
 
 Examples:
-* `set-validity 1 v/2028-09-09` — sets the 1st client's membership validity to 09 Sep 2028.
+* `set-validity 1 v/2026-12-31` — sets the 1st client's membership validity to 31 Dec 2026.
 
 ![set validity](images/setValidity.png)
 

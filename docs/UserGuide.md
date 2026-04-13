@@ -605,7 +605,7 @@ Format: `remark c/CLIENT_INDEX r/REMARK`
 * Remark is a client-specific functionality. It enables trainers to keep track of specific concerns/notes pertaining to a particular client.
 
 Examples:
-* `remark c/1 r/Recovering from ACL Team` — sets the 1st client's remark to "Recovering from ACL Tear".
+* `remark c/1 r/Recovering from ACL Tear` — sets the 1st client's remark to "Recovering from ACL Tear".
 
 ![remark](images/remark.png)
 **Expected outcome:** The client's remark is updated and displayed on their card. A success message is displayed.
